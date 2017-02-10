@@ -1,0 +1,107 @@
+<html>
+<head>
+  <style>
+    img {
+      image-rendering: -moz-crisp-edges;         /* Firefox */
+      image-rendering:   -o-crisp-edges;         /* Opera */
+      image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
+      image-rendering: pixelated;
+    }
+
+
+    .glyph {
+      float:left;
+    }
+  </style>
+  <script src="jquery.min.js"></script>
+  <script>
+
+    var MODE = {};
+    MODE.LIKE = 1;
+    MODE.HATE = 2;
+    var current_mode = MODE.LIKE;
+
+    // http://stackoverflow.com/a/6274398/384316
+    function shuffle(array) {
+      let counter = array.length;
+      while (counter > 0) {
+        let index = Math.floor(Math.random() * counter);
+        counter--;
+        let temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+      }
+      return array;
+    }
+
+    function initialiseGlyphs() {
+      $("#container").empty();
+      $.get("/get-random", function(data) {
+        $("#emoji_name").text(data[0].emoji_name);
+        data = shuffle(data);
+        for (i in data) {
+          var emoji = data[i];
+          //console.log(emoji);
+          var box = $("<div class='glyph'>");
+          box.attr("vendor", emoji.vendor_name);
+          var img = $("<img>");
+          img.attr("width", "72");
+          img.attr("src",  "images/" + emoji.unicode_value + "_" + emoji.vendor_name + ".png");
+          box.append(img);
+          $("#container").append(box);
+          box.click(function(event) {
+            glyphClick(event, emoji);
+          });
+        }
+      });
+    }
+
+    function setModeLike() {
+      current_mode = MODE.LIKE;
+      $("#instruction").text("Select your favourite!");
+      initialiseGlyphs();
+    }
+
+    function setModeHate() {
+      current_mode = MODE.HATE;
+      $("#instruction").text("Which one do you hate?");
+
+    }
+
+    function glyphClick(event, emoji) {
+      var vote = '';
+      if (current_mode == MODE.LIKE) {
+        vote = 'like';
+        setModeHate();
+      } else {
+        vote = 'hate';
+        setModeLike();
+      }
+
+      var vendor = event.delegateTarget.attributes.vendor.value;
+      event.delegateTarget.style.display = "none";
+      console.log(vendor);
+      $.get("/vote",
+        {
+          character: emoji.unicode_value,
+          vendor: vendor,
+          vote: vote
+        }, function(data) {
+          console.log(data);
+        });
+    }
+
+    $(document).ready(function() {
+      setModeLike();
+    });
+  </script>
+</head>
+<body>
+  <h1 id="emoji_name"></h1>
+  <h2 id="instruction"></h2>
+  <div id="container">
+  </div>
+</body>
+</html>
