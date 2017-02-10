@@ -23,6 +23,12 @@
     MODE.HATE = 2;
     var current_mode = MODE.LIKE;
 
+    var image_prefix = "images/";
+    if (window.location.href.indexOf('localhost') === -1) {
+      image_prefix = "http://www.bpulse.co.uk/emoji/images/";
+    }
+
+
     // http://stackoverflow.com/a/6274398/384316
     function shuffle(array) {
       let counter = array.length;
@@ -48,7 +54,7 @@
           box.attr("vendor", emoji.vendor_name);
           var img = $("<img>");
           img.attr("width", "72");
-          img.attr("src",  "images/" + emoji.unicode_value + "_" + emoji.vendor_name + ".png");
+          img.attr("src",  image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png");
           box.append(img);
           $("#container").append(box);
           box.click(function(event) {
