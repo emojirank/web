@@ -3,6 +3,9 @@ var url = require('url');
 var app = express();
 
 var dburl = 'emojirank';
+if (process.env.MONGODB_URI) {
+  dburl = process.env.MONGODB_URI;
+}
 var collections = ['glyphs', 'votes'];
 var mongojs = require('mongojs');
 
