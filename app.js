@@ -50,32 +50,48 @@ app.get("/vote", function(req, res) {
     "user_ip": ip,
     "t": new Date()
   });
+
+  if (vote === "like") {
+      db.glyphs.update(
+        {"unicode_value" : character, "vendor_name" : vendor, like_count: {$exists : false}},
+        {$set: {like_count: 0}},
+        function(err, result) {
+          db.glyphs.update(
+            {"unicode_value" : character, "vendor_name" : vendor},
+            {$inc: {like_count:1}}
+          );
+        });
+  }
+
+  if (vote === "hate") {
+      db.glyphs.update(
+        {"unicode_value" : character, "vendor_name" : vendor, hate_count: {$exists : false}},
+        {$set: {hate_count: 0}},
+        function(err, result) {
+          db.glyphs.update(
+            {"unicode_value" : character, "vendor_name" : vendor},
+            {$inc: {hate_count:1}}
+          );
+        });
+  }
+
   res.send("{success:true}");
   //db.likes.insert("")
 });
 
-
-
-
-app.get('/get/pallet', function (req, res) {
-    res.send(db.pallets.find({filename: req.params.pallet}));
+app.get('/reset-all-glyphs-vote', function(req, res) {
+  db.glyphs.update(
+    {}, 
+    { $set: 
+      { 
+        like_count: 0,
+        hate_count: 0 
+      } 
+    }
+  );
+  res.send("{success:true}");
 });
-//.skip(parseInt(query['index'], 10)).limit(1)
-app.get('/get/frame', function (req, res) {
-    var url_parts = url.parse(req.url, true);
-    var query = url_parts.query;
-    var result = query['status'];
-console.log(query['filename']);
-	db.frames.find({filename: query['filename']}).sort({totalDraws:1}).skip(parseInt(query['index'], 10)).limit(1,
-	function(err, result) {
 
-		console.log(query['filename']);
-		console.log(query['index']);
-		console.log(result);
-
-		res.send(result);
-	});
-});
 
 app.get('/', function (req, res) {
     res.sendfile('index.html');
