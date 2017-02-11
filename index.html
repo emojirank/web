@@ -26,6 +26,10 @@
     .glyph {
       display: inline-block;
     }
+
+    div#user_selections div {
+      float: left;
+    }
   </style>
   <script src="jquery.min.js"></script>
   <script>
@@ -33,6 +37,7 @@
     var MODE = {};
     MODE.LIKE = 1;
     MODE.HATE = 2;
+    MODE.RESULTS = 3;
     var current_mode = MODE.LIKE;
 
     var image_prefix = "images/";
@@ -80,26 +85,34 @@
       current_mode = MODE.LIKE;
       $("#instruction").text("Select your favourite!");
       initialiseGlyphs();
+      $("#user_selections").hide();
     }
 
     function setModeHate() {
       current_mode = MODE.HATE;
       $("#instruction").text("Which one do you hate?");
+    }
 
+    function setModeResults() {
+      current_mode = MODE.RESULTS;
+      $("#user_selections").show();
     }
 
     function glyphClick(event, emoji) {
       var vote = '';
+      var vendor = event.delegateTarget.attributes.vendor.value;
+      event.delegateTarget.style.display = "none";
+
       if (current_mode == MODE.LIKE) {
         vote = 'like';
         setModeHate();
-      } else {
+        fillUserLikeEmoji(emoji, vendor);
+      } else if (current_mode == MODE.HATE) {
         vote = 'hate';
-        setModeLike();
+        setModeResults();
+        fillUserHateEmoji(emoji, vendor);
       }
 
-      var vendor = event.delegateTarget.attributes.vendor.value;
-      event.delegateTarget.style.display = "none";
       console.log(vendor);
       $.get("/vote",
         {
@@ -113,13 +126,42 @@
 
     $(document).ready(function() {
       setModeLike();
+
+      $("#go_next").click(function() {
+        setModeLike();
+      });
     });
+
+    function fillUserLikeEmoji(emoji, vendor_name) {
+      $("#user_like").empty();
+      var box = $("<div class='glyph'>"); // TODO: this section copied from above, refactor?
+      var img = $("<img>");
+      img.attr("width", "72");
+      img.attr("src",  image_prefix + emoji.unicode_value + "_" + vendor_name + ".png");
+      box.append(img);
+      $("#user_like").append(box);
+    }
+
+    function fillUserHateEmoji(emoji, vendor_name) {
+      $("#user_hate").empty();
+      var box = $("<div class='glyph'>"); // TODO: this section copied from above, refactor?
+      var img = $("<img>");
+      img.attr("width", "72");
+      img.attr("src",  image_prefix + emoji.unicode_value + "_" + vendor_name + ".png");
+      box.append(img);
+      $("#user_hate").append(box);
+    }
   </script>
 </head>
 <body>
   <h1 id="emoji_name"></h1>
   <h2 id="instruction"></h2>
   <div id="container">
+  </div>
+  <div id="user_selections">
+    <div id="user_like"></div><div id="user_hate"></div><button id="go_next">Next</button>
+  </div>
+  <div id="db_selections">
   </div>
 </body>
 </html>
