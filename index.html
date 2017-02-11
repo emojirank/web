@@ -36,13 +36,11 @@
     div#user_like {
       display: inline-block;
       background-color: #BEFFC1;
-      padding-right: 5px;
     }
 
     div#user_hate {
       display: inline-block;
       background-color: #FFC3BE;
-      padding-left: 5px;
     }
 
     div#options {
@@ -115,6 +113,7 @@
 
     function setModeResults() {
       current_mode = MODE.RESULTS;
+      $("#instruction").text("Results:");
       $("#user_selections").show();
     }
 
