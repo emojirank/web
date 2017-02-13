@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 512 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g transform="matrix(-0.501754,-0.501754,0.668725,-0.668725,405.612,194.327)">
+        <path d="M145.026,42.388L145.026,95.258L74.562,95.258L145.026,42.388Z" style="fill:rgb(51,102,204);"/>
+    </g>
+    <g transform="matrix(0.802806,0.802806,-1.06996,1.06996,117.305,5.64704)">
+        <path d="M145.026,42.388L145.026,95.258L74.562,95.258L145.026,42.388Z" style="fill:rgb(51,204,51);"/>
+    </g>
+    <g transform="matrix(3.8308,0,0,3.8308,-131.854,-221.403)">
+        <text x="33.828px" y="98.533px" style="font-family:'WorkSans-Bold', 'Work Sans';font-weight:700;font-size:31.847px;fill:rgb(51,102,204);">E</text>
+        <text x="52.586px" y="98.533px" style="font-family:'WorkSans-Bold', 'Work Sans';font-weight:700;font-size:25.06px;fill:rgb(51,102,204);">m<tspan x="75.115px 89.148px 95.363px " y="98.533px 98.533px 98.533px ">oji</tspan></text>
+    </g>
+    <g transform="matrix(3.8308,0,0,3.8308,-129.854,-221.403)">
+        <text x="101.603px" y="98.533px" style="font-family:'WorkSans-Bold', 'Work Sans';font-weight:700;font-size:31.847px;fill:rgb(51,204,51);">R</text>
+        <text x="122.208px" y="98.533px" style="font-family:'WorkSans-Bold', 'Work Sans';font-weight:700;font-size:25.06px;fill:rgb(51,204,51);">a<tspan x="135.715px 150.2px " y="98.533px 98.533px ">nk</tspan></text>
+    </g>
+</svg>
