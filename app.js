@@ -22,12 +22,27 @@ app.get('/getter', function(req, res) {
   });
 });
 
-app.get('/get-random', function(req, res) {
-  var randomLine = getRandomInt(0,2388);
-  console.log(randomLine);
-  db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
-    res.send(result);
-  });
+app.get('/get-emoji', function(req, res) {
+  var pathname = url.parse(req.headers.referer, true).pathname;
+
+
+  if (pathname === '/') {
+    var randomLine = getRandomInt(0,2388);
+    console.log(randomLine);
+    db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
+      res.send(result);
+    });
+  }
+
+  if (pathname.indexOf('/emoji/') === 0) {
+    db.glyphs.find({ "unicode_value" : pathname.split('/')[2]}, function(err, result) {
+      res.send(result);
+    });
+  }
+});
+
+app.get('/emoji/:unicode_value', function(req, res) {
+    res.sendfile('index.html');
 });
 
 app.get("/vote", function(req, res) {

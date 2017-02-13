@@ -4,7 +4,7 @@ MODE.HATE = 2;
 MODE.RESULTS = 3;
 var current_mode = MODE.LIKE;
 
-var image_prefix = "images/";
+var image_prefix = "/images/";
 if (window.location.href.indexOf('localhost') === -1) {
   image_prefix = "http://www.bpulse.co.uk/emoji/images/";
 }
@@ -24,7 +24,7 @@ function shuffle(array) {
 
 function initialiseGlyphs() {
   $("#container").empty();
-  $.get("/get-random", function(data) {
+  $.get("/get-emoji", function(data) {
     $("#emoji_name").text(data[0].emoji_name);
     data = shuffle(data);
     for (i in data) {
