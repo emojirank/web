@@ -3,6 +3,14 @@ body {
   padding: 15px;
 }
 
+div#logo {
+  text-align: center;
+}
+
+h1 {
+  text-transform: capitalize;
+}
+
 div#container {
   margin: auto;
   width: 90%;
@@ -16,11 +24,11 @@ img {
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor;  /* IE (non-standard property) */
   image-rendering: pixelated;
-  padding: 20px;
 }
 
 .glyph {
   display: inline-block;
+  padding: 20px;
 }
 
 div#user_selections {
