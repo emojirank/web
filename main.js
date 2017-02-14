@@ -34,6 +34,7 @@ function initialiseGlyphs() {
 
   $.get("/get-emoji", function(data) {
     $("#emoji_name").text(data[0].emoji_name);
+    document.title = "EmojiRank: " + data[0].emoji_name;
     data = shuffle(data);
     for (i in data) {
       var emoji = data[i];
