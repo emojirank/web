@@ -15,6 +15,15 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+app.get('/get-next-emoji', function(req, res) {
+    var randomLine = getRandomInt(0,2388);
+    console.log(randomLine);
+    db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
+
+      res.send({"next": result[0].unicode_value});
+    });
+});
+
 app.get('/getter', function(req, res) {
 
   db.glyphs.find({ "unicode_value" : "1f575_1f3fd"}, function(err, result) {
@@ -42,7 +51,7 @@ app.get('/get-emoji', function(req, res) {
 });
 
 app.get('/emoji/:unicode_value', function(req, res) {
-    res.sendfile('index.html');
+    res.sendfile('vote.html');
 });
 
 app.get("/vote", function(req, res) {
@@ -109,7 +118,11 @@ app.get('/reset-all-glyphs-vote', function(req, res) {
 
 
 app.get('/', function (req, res) {
-    res.sendfile('index.html');
+    var randomLine = getRandomInt(0,2388);
+    console.log(randomLine);
+    db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
+      res.redirect("/emoji/" + result[0].unicode_value);
+    });
 });
 
 app.get('*', function (req, res) {

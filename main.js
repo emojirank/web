@@ -92,7 +92,10 @@ $(document).ready(function() {
   setModeLike();
 
   $("#go_next").click(function() {
-    setModeLike();
+    $.get("/get-next-emoji", function (data){
+      window.location = "/emoji/" + data.next;
+      setModeLike();
+    });
   });
 });
 
