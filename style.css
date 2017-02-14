@@ -33,6 +33,7 @@ img {
 
 div#user_selections, div#db_selections {
   margin: auto;
+  margin-bottom: 25px;
   width: 90%;
   text-align: center;
 }
