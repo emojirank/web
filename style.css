@@ -48,6 +48,11 @@ div#user_hate, div#db_hate {
   background-color: #FFC3BE;
 }
 
+h3 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
 div#options {
   margin: auto;
   margin-top: 25px;
