@@ -16,12 +16,19 @@ function getRandomInt(min, max) {
 }
 
 app.get('/get-next-emoji', function(req, res) {
-    var randomLine = getRandomInt(0,2388);
-    console.log(randomLine);
-    db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
+  db.glyphs.find({ "emoji_total_count" : { "$exists": false }}).limit(1 , function(err, result) {
+    if (result.length === 0)
+    {
+      var randomLine = getRandomInt(0,2388);
+      console.log(randomLine);
+      db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
 
-      res.send({"next": result[0].unicode_value});
-    });
+        res.send({"next": result[0].unicode_value, "mode": "random"});
+      });
+    } else {
+        res.send({"next": result[0].unicode_value, "mode": "filling emoji_total_count"});
+    }
+  });
 });
 
 app.get('/getter', function(req, res) {
@@ -114,7 +121,7 @@ app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
 
     db.glyphs.update(
       {"unicode_value" : req.params.unicode_value},
-      {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates}},
+      {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "last_updated": new Date()}},
       {multi: true}
       );
     res.send({"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "success": true});
