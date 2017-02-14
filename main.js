@@ -123,6 +123,9 @@ function glyphClick(event, emoji) {
       vote: vote
     }, function(data) {
       console.log(data);
+      if (vote === 'hate') {
+        $.get('/reset-glyph-stats/' + emoji.unicode_value);
+      }
     });
 }
 

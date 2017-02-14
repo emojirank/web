@@ -103,17 +103,24 @@ app.get("/vote", function(req, res) {
   //db.likes.insert("")
 });
 
-app.get('/reset-all-glyphs-vote', function(req, res) {
-  db.glyphs.update(
-    {}, 
-    { $set: 
-      { 
-        like_count: 0,
-        hate_count: 0 
-      } 
-    }
-  );
-  res.send("{success:true}");
+app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
+  db.glyphs.find({ "unicode_value" : req.params.unicode_value}, function(err, result) {
+    var likes = 0;
+    var hates = 0;
+    result.forEach(function(glyph){
+      if (glyph.like_count) likes += glyph.like_count;
+      if (glyph.hate_count) hates += glyph.hate_count;
+    })
+
+    db.glyphs.update(
+      {"unicode_value" : req.params.unicode_value},
+      {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates}},
+      {multi: true}
+      );
+    res.send({"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "success": true});
+  });
+
+
 });
 
 
