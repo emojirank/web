@@ -48,7 +48,6 @@ function setModeLike() {
   current_mode = MODE.LIKE;
   $("#instruction").text("Select your favourite!");
   initialiseGlyphs();
-  $("#user_selections").hide();
 }
 
 function setModeHate() {
@@ -59,7 +58,6 @@ function setModeHate() {
 function setModeResults() {
   current_mode = MODE.RESULTS;
   $("#instruction").text("Results:");
-  $("#user_selections").show();
 }
 
 function glyphClick(event, emoji) {
