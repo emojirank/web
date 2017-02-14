@@ -31,18 +31,18 @@ img {
   padding: 20px;
 }
 
-div#user_selections {
+div#user_selections, div#db_selections {
   margin: auto;
   width: 90%;
   text-align: center;
 }
 
-div#user_like {
+div#user_like, div#db_like {
   display: inline-block;
   background-color: #BEFFC1;
 }
 
-div#user_hate {
+div#user_hate, div#db_hate {
   display: inline-block;
   background-color: #FFC3BE;
 }
