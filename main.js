@@ -33,7 +33,7 @@ function initialiseGlyphs() {
   most_hated = {};
 
   $.get("/get-emoji", function(data) {
-    $("#emoji_name").text(data[0].emoji_name);
+    $("#emoji_name").html(data[0].emoji_name);
     document.title = "EmojiRank: " + data[0].emoji_name;
     data = shuffle(data);
     for (i in data) {
