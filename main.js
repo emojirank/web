@@ -101,6 +101,10 @@ function setModeResults() {
 }
 
 function glyphClick(event, emoji) {
+  if (current_mode === MODE.RESULTS) {
+    return;
+  }
+
   var vote = '';
   var vendor = event.delegateTarget.attributes.vendor.value;
   event.delegateTarget.style.display = "none";
