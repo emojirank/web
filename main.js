@@ -133,10 +133,16 @@ $(document).ready(function() {
   setModeLike();
 
   $("#go_next").click(function() {
-    $.get("/get-next-emoji", function (data){
-      window.location = "/emoji/" + data.next;
-      setModeLike();
-    });
+    if (current_mode === MODE.RESULTS) {
+      $.get("/get-next-emoji", function (data){
+        window.location = "/emoji/" + data.next;
+        setModeLike();
+      });
+    }
+    else {
+      window.location = "/";
+    }
+
   });
 });
 
