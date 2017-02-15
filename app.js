@@ -57,6 +57,12 @@ app.get('/get-emoji', function(req, res) {
   }
 });
 
+app.get('/get-emoji/:unicode_value', function(req, res) {
+  db.glyphs.find({ "unicode_value" : req.params.unicode_value}, function(err, result) {
+    res.send(result);
+  });
+});
+
 app.get('/emoji/:unicode_value', function(req, res) {
     res.sendfile('vote.html');
 });
