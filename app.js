@@ -15,6 +15,19 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+app.get('/stats/vendor', function(req, res) {
+  db.glyphs.aggregate([ { 
+    $group: { 
+        _id: { vendor: "$vendor_name"}, 
+        total: { 
+            $sum: "$like_count" 
+        }
+    }
+  }], function(err, result) {
+    res.send(result);
+  });
+});
+
 app.get('/get-next-emoji', function(req, res) {
   db.glyphs.find({ "emoji_total_count" : { "$exists": false }}).limit(1 , function(err, result) {
     if (result.length === 0)
