@@ -19,8 +19,11 @@ app.get('/stats/vendor', function(req, res) {
   db.glyphs.aggregate([ { 
     $group: { 
         _id: { vendor: "$vendor_name"}, 
-        total: { 
+        total_likes: { 
             $sum: "$like_count" 
+        },
+        total_hates: { 
+            $sum: "$hate_count" 
         }
     }
   }], function(err, result) {
