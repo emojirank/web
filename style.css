@@ -45,11 +45,13 @@ div#user_selections, div#db_selections {
 
 div#user_like, div#db_like {
   display: inline-block;
+  border-radius: 7px;
   background-color: #BEFFC1;
 }
 
 div#user_hate, div#db_hate {
   display: inline-block;
+  border-radius: 7px;
   background-color: #FFC3BE;
 }
 
