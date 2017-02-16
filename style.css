@@ -31,6 +31,10 @@ img {
   padding: 20px;
 }
 
+.placeholder {
+  padding: 20px;
+}
+
 div#user_selections, div#db_selections {
   margin: auto;
   margin-bottom: 25px;
@@ -39,15 +43,11 @@ div#user_selections, div#db_selections {
 }
 
 div#user_like, div#db_like {
-  width: 112px;
-  height: 112px;
   display: inline-block;
   background-color: #BEFFC1;
 }
 
 div#user_hate, div#db_hate {
-  width: 112px;
-  height: 112px;
   display: inline-block;
   background-color: #FFC3BE;
 }
