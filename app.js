@@ -31,13 +31,6 @@ app.get('/get-next-emoji', function(req, res) {
   });
 });
 
-app.get('/getter', function(req, res) {
-
-  db.glyphs.find({ "unicode_value" : "1f575_1f3fd"}, function(err, result) {
-    res.send(result);
-  });
-});
-
 app.get('/get-emoji', function(req, res) {
   var pathname = url.parse(req.headers.referer, true).pathname;
 
@@ -65,6 +58,10 @@ app.get('/get-emoji/:unicode_value', function(req, res) {
 
 app.get('/emoji/:unicode_value', function(req, res) {
     res.sendfile('vote.html');
+});
+
+app.get('/results/:unicode_value', function(req, res) {
+    res.sendfile('results.html');
 });
 
 app.get("/vote", function(req, res) {
