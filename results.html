@@ -1,0 +1,97 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src="/jquery.min.js"></script>
+  <title>EmojiRank</title>
+  <style>
+    #table_by_like, #table_by_hate {
+      float:left;
+    }
+  </style>
+  <script>
+    var image_prefix = "/images/";
+    if (window.location.href.indexOf('localhost') === -1) {
+      image_prefix = "http://www.bpulse.co.uk/emoji/images/";
+    }
+
+    var emoji_array = [];
+
+    $(document).ready(function() {
+      $.get("/get-emoji/" + window.location.pathname.split('/')[2], function(data) {
+        $("#emoji_name").html(data[0].emoji_name);
+        document.title = "EmojiRank: " + data[0].emoji_name;
+        for (i in data) {
+          var emoji = data[i];
+
+          if (! emoji.like_count) emoji.like_count = 0;
+          if (! emoji.hate_count) emoji.hate_count = 0;
+          emoji_array.push(emoji);
+        }
+
+        emoji_array.sort(like_comparison);
+
+        for (i in emoji_array) {
+          var tr = $("<tr>");
+          tr.append($("<td>").text(parseInt(i, 10) + 1));
+          tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
+          tr.append($("<td>").text(emoji_array[i].vendor_name));
+          tr.append($("<td>").text(emoji_array[i].like_count));
+          $("#table_by_like").append(tr);
+        }
+
+        emoji_array.sort(hate_comparison);
+
+        for (i in emoji_array) {
+          var tr = $("<tr>");
+          tr.append($("<td>").text(parseInt(i, 10) + 1));
+          tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
+          tr.append($("<td>").text(emoji_array[i].vendor_name));
+          tr.append($("<td>").text(emoji_array[i].hate_count));
+          $("#table_by_hate").append(tr);
+        }
+      });
+    });
+
+    function like_comparison(a, b) {
+      if (a.like_count > b.like_count) return -1;
+      if (a.like_count < b.like_count) return 1;
+      else return 0;
+    }
+
+    function hate_comparison(a, b) {
+      if (a.hate_count > b.hate_count) return -1;
+      if (a.hate_count < b.hate_count) return 1;
+      else return 0;
+    }
+
+    function getGlyphBox(emoji) {
+      var box = $("<div class='glyph'>");
+      box.attr("vendor", emoji.vendor_name);
+      var img = $("<img>");
+      img.attr("width", "72");
+      img.attr("src",  image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png");
+      box.append(img);
+
+      return box;
+    }
+
+  </script>
+</head>
+<body>
+  <script src="/analytics.js"></script>
+  <div id="logo"><img src="/assets/logo.svg" alt="EmojiRank" width="200"></div>
+  <h1 id="emoji_name"></h1>
+  <table id="table_by_like">
+    <tr>
+      <td>Rank</td><td>Image</td><td>Vendor</td><td>Likes</td>
+    </tr>
+  </table>
+  <table id="table_by_hate">
+    <tr>
+      <td>Rank</td><td>Image</td><td>Vendor</td><td>Hates</td>
+    </tr>
+  </table>
+  
+</body>
+</html>
