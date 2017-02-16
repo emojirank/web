@@ -39,6 +39,8 @@ div#user_selections, div#db_selections {
 }
 
 div#user_like, div#db_like {
+  width: 112px;
+  height: 112px;
   display: inline-block;
   background-color: #BEFFC1;
 }
