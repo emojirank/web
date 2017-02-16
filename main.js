@@ -66,7 +66,7 @@ function initialiseGlyphs() {
     most_liked_img.attr("src",  image_prefix + most_liked.unicode_value + "_" + most_liked.vendor_name + ".png");
     most_liked_div.append(most_liked_img);
     $("#db_like").append(most_liked_div);
-    $("#db_like").append($("<h3>").text(most_liked.vendor_name));
+    $("#db_like").append($("<h4>").text(most_liked.vendor_name));
 
     var most_hated_div = $("<div class='glyph'>");
     var most_hated_img = $("<img>");
@@ -74,7 +74,7 @@ function initialiseGlyphs() {
     most_hated_img.attr("src",  image_prefix + most_hated.unicode_value + "_" + most_hated.vendor_name + ".png");
     most_hated_div.append(most_hated_img);
     $("#db_hate").append(most_hated_div);
-    $("#db_hate").append($("<h3>").text(most_hated.vendor_name));
+    $("#db_hate").append($("<h4>").text(most_hated.vendor_name));
 
     console.log("most liked");
     console.log(most_liked);
@@ -158,7 +158,7 @@ function fillUserLikeEmoji(emoji, vendor_name) {
   img.attr("src",  image_prefix + emoji.unicode_value + "_" + vendor_name + ".png");
   box.append(img);
   $("#user_like").append(box);
-  $("#user_like").append($("<h3>").text(vendor_name));
+  $("#user_like").append($("<h4>").text(vendor_name));
 }
 
 function fillUserHateEmoji(emoji, vendor_name) {
@@ -169,5 +169,5 @@ function fillUserHateEmoji(emoji, vendor_name) {
   img.attr("src",  image_prefix + emoji.unicode_value + "_" + vendor_name + ".png");
   box.append(img);
   $("#user_hate").append(box);
-  $("#user_hate").append($("<h3>").text(vendor_name));
+  $("#user_hate").append($("<h4>").text(vendor_name));
 }
