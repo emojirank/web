@@ -46,6 +46,8 @@ div#user_like, div#db_like {
 }
 
 div#user_hate, div#db_hate {
+  width: 112px;
+  height: 112px;
   display: inline-block;
   background-color: #FFC3BE;
 }
