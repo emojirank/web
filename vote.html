@@ -8,23 +8,29 @@
 </head>
 <body>
   <script src="/analytics.js"></script>
-  <div id="logo"><img src="/assets/logo.svg" alt="EmojiRank" width="200"></div>
-  <h1 id="emoji_name"></h1>
-  <h2 id="instruction"></h2>
-  <div id="container">
-  </div>
-  <div id="user_selections">
-  <h3>Your vote</h3>
-    <div id="user_like"><img class="placeholder" src="/assets/like_placeholder.svg" alt="Like" width="72"><h4>???</h4></div>
-    <div id="user_hate"><img src="/assets/hate_placeholder.svg" class="placeholder" alt="Hate" width="72"><h4>???</h4></div>
-  </div>
-  <div id="db_selections">
-  <h3>World rankings</h3>
-    <div id="db_like"></div>
-    <div id="db_hate"></div>
-  </div>
-  <div id="options">
-    <button id="go_next">Next</button>
-  </div>
+  <header>
+    <div id="logo"><a href="/"><img src="/assets/logo.svg" alt="EmojiRank" width="200"></a></div>
+  </header>
+  <main>
+    <h1 id="emoji_name"></h1>
+    <h2 id="instruction"></h2>
+    <div id="container">
+    </div>
+    <div id="user_selections">
+    <h3>Your vote</h3>
+      <div id="user_like"><img class="placeholder" src="/assets/like_placeholder.svg" alt="Like" width="72"><h4>???</h4></div>
+      <div id="user_hate"><img src="/assets/hate_placeholder.svg" class="placeholder" alt="Hate" width="72"><h4>???</h4></div>
+    </div>
+    <div id="db_selections">
+    <h3>World rankings</h3>
+      <div id="db_like"></div>
+      <div id="db_hate"></div>
+    </div>
+  </main>
+  <footer>
+    <div id="option"><a href="/next">Next</a></div>
+    <div id="option"><a href="/stats">Stats</a></div>
+    <div id="footer_text">Other stuff here?!?</div>
+  </footer>
 </body>
 </html>
