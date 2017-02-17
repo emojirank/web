@@ -103,6 +103,7 @@ function setModeResults() {
   current_mode = MODE.RESULTS;
   $("#instruction").text("Results:");
   populateWorldResults();
+  $("html, body").animate({ scrollTop: $("#user_selections").offset().top });
 }
 
 function glyphClick(event, emoji) {
