@@ -145,13 +145,19 @@ app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
     result.forEach(function(glyph){
       if (glyph.like_count) likes += glyph.like_count;
       if (glyph.hate_count) hates += glyph.hate_count;
-    })
+    });
 
-    db.glyphs.update(
-      {"unicode_value" : req.params.unicode_value},
-      {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "last_updated": new Date()}},
-      {multi: true}
+    result.forEach(function(glyph){
+      var glyph_score = (glyph.like_count ? glyph.like_count : 0 - glyph.hate_count ? glyph.hate_count : 0) / (likes + hates) * 200;
+      db.glyphs.update(
+        {"unicode_value" : req.params.unicode_value, "vendor_name": glyph.vendor_name},
+        {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "last_updated": new Date(),
+          glyph_score: glyph_score
+        }},
+        {multi: true}
       );
+    });
+
     res.send({"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "success": true});
   });
 
