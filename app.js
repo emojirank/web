@@ -166,7 +166,7 @@ app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
 
 
 app.get('/', function (req, res) {
-    var randomLine = getRandomInt(0,2388);
+    var randomLine = getRandomInt(1, 1024);
     console.log(randomLine);
     db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
       res.redirect("/emoji/" + result[0].unicode_value);
