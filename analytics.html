@@ -1,0 +1,29 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script>
+  if (typeof jQuery == 'undefined') {
+      document.write(unescape("%3Cscript src='/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+  }
+  </script>
+  <title>EmojiRank</title>
+  <style>
+    #table_by_like, #table_by_hate {
+      float:left;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      $.get('/get-analytics/unvoted-emojis-glyph-count', function(data) {
+        $("#unvoted_emojis").text(data.count);
+      }); 
+    });
+  </script>
+</head>
+<body>
+<div>Unvoted emojis (total glyph count): <span id="unvoted_emojis"></span></div>
+</body>
+</html>

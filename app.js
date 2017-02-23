@@ -89,6 +89,18 @@ app.get('/results/:unicode_value', function(req, res) {
     res.sendfile('results.html');
 });
 
+
+app.get('/analytics', function(req, res) {
+  res.sendfile('analytics.html');
+});
+
+app.get('/get-analytics/unvoted-emojis-glyph-count', function(req, res) {
+  db.glyphs.find({ "emoji_total_count": {"$exists": false}}).count(function(err, result) {
+    var count = { count: result};
+    res.send(count);
+  });
+});
+
 app.get("/vote", function(req, res) {
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
@@ -163,7 +175,6 @@ app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
 
 
 });
-
 
 app.get('/', function (req, res) {
     var randomLine = getRandomInt(1, 1024);
