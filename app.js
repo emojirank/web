@@ -160,7 +160,8 @@ app.get('/reset-glyph-stats/:unicode_value', function(req, res) {
     });
 
     result.forEach(function(glyph){
-      var glyph_score = (glyph.like_count ? glyph.like_count : 0 - glyph.hate_count ? glyph.hate_count : 0) / (likes + hates) * 200;
+      var like_hate_diff = (glyph.like_count ? glyph.like_count : 0) - (glyph.hate_count ? glyph.hate_count : 0);
+      var glyph_score = like_hate_diff / (likes + hates) * 200;
       db.glyphs.update(
         {"unicode_value" : req.params.unicode_value, "vendor_name": glyph.vendor_name},
         {$set: {"emoji_like_count": likes, "emoji_hate_count": hates, "emoji_total_count": likes + hates, "last_updated": new Date(),
