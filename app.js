@@ -24,6 +24,9 @@ app.get('/stats/vendor', function(req, res) {
         },
         total_hates: { 
             $sum: "$hate_count" 
+        },
+        glyph_score_sum: { 
+            $sum: "$glyph_score" 
         }
     }
   }], function(err, result) {
