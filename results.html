@@ -43,6 +43,12 @@
       else return 0;
     }
 
+    function glyph_score_comparison(a, b) {
+      if (a.glyph_score > b.glyph_score) return -1;
+      if (a.glyph_score < b.glyph_score) return 1;
+      else return 0;
+    }
+
     function getGlyphBox(emoji) {
       var box = $("<div class='glyph'>");
       box.attr("vendor", emoji.vendor_name);
@@ -88,15 +94,36 @@
           $("#table_by_hate").append(tr);
         }
 
+        emoji_array.sort(glyph_score_comparison);
+
         for (i in emoji_array) {
           var emoji = emoji_array[i];
-          var glyph_row = $("<div>");
-          glyph_row.addClass("crisp");
-          glyph_row.css("width", emoji.glyph_score * 9);
-          glyph_row.css("height", 72);
-          glyph_row.css("background-image", 'url(' + image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png)");
-          glyph_row.css("background-repeat", "repeat-x");
-          glyph_row.css("background-size", "72px 72px");
+
+          var glyph_bar = $("<div>");
+          glyph_bar.addClass("crisp");
+          glyph_bar.css("width", Math.abs(emoji.glyph_score) * 5);
+          glyph_bar.css("height", 72);
+          glyph_bar.css("background-image", 'url(' + image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png)");
+          glyph_bar.css("background-repeat", "repeat-x");
+          glyph_bar.css("background-size", "72px 72px");
+
+          var glyph_row = $("<tr>");
+
+          var negative_column = $("<td>");
+          if (emoji.glyph_score < 0) {
+            glyph_bar.addClass("negative_bar");
+            negative_column.append(glyph_bar);
+          }
+          glyph_row.append(negative_column);
+
+          glyph_row.append($("<td>").text(emoji.vendor_name));
+
+          var positive_column = $("<td>");
+          if (emoji.glyph_score > 0) {
+            positive_column.append(glyph_bar);
+          }
+          glyph_row.append(positive_column);
+
           $("#glyph_rows").append(glyph_row);
         }
       });
@@ -109,9 +136,13 @@
   <div id="logo"><img src="/assets/logo.svg" alt="EmojiRank" width="200"></div>
   <h1 id="emoji_name"></h1>
   <main>
-    <div id="glyph_rows">
-
-    </div>
+    <table id="glyph_rows">
+      <tr>
+        <th>Negative</th>
+        <th>Vendor</th>
+        <th>Positive</th>
+      </tr>
+    </table>
     <div style="display: inline-block;">
       <table id="table_by_like">
         <tr>

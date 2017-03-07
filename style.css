@@ -77,6 +77,11 @@ div#user_hate, div#db_hate {
   background-color: #FFC3BE;
 }
 
+div.negative_bar {
+  float: right;
+  background-position: right;
+}
+
 footer {
   color: white;
   background-color: gray;
