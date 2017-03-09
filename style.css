@@ -67,11 +67,11 @@ div#overlay {
   left: 50%;
   margin-top: -45px;
   margin-left: -70px;
-  background-color: #000;
-  opacity: 0.5;
+  background: rgb(60, 60, 60); /* The Fallback */
+  background: rgba(60, 60, 60, 0.7);
   border-radius: 7px;
   text-align: center;
-  z-index: 10; /* 1px higher than the overlay layer */
+  z-index: 1;
 }
 
 p#overlay_text {
