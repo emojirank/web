@@ -77,6 +77,7 @@ div#overlay {
 p#overlay_text {
   opacity: 1.0; /*why doesn't this work?*/
   font-weight: bold;
+  padding: 10px;
   color: #FFF;
 }
 
