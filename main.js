@@ -91,12 +91,18 @@ function populateWorldResults() {
 function setModeLike() {
   current_mode = MODE.LIKE;
   $("#instruction").text("Select your favourite!");
+  $("#overlay_text").text("Select your favourite!");
+  $("#overlay").fadeIn()
+  $("#overlay").delay(1000).fadeOut();
   initialiseGlyphs();
 }
 
 function setModeHate() {
   current_mode = MODE.HATE;
   $("#instruction").text("Which one do you hate?");
+  $("#overlay_text").text("Select the worst");
+  $("#overlay").fadeIn()
+  $("#overlay").delay(1000).fadeOut();
 }
 
 function setModeResults() {
@@ -152,6 +158,7 @@ function glyphClick(event, emoji) {
 }
 
 $(document).ready(function() {
+  $("overlay").hide();
   setModeLike();
 
   $("#go_next").click(function() {

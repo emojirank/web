@@ -59,6 +59,27 @@ img, .crisp {
   padding: 20px;
 }
 
+div#overlay {
+  width: 140px;
+  height: 90px;
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  margin-top: -45px;
+  margin-left: -70px;
+  background-color: #000;
+  opacity: 0.5;
+  border-radius: 7px;
+  text-align: center;
+  z-index: 10; /* 1px higher than the overlay layer */
+}
+
+p#overlay_text {
+  opacity: 1.0; /*why doesn't this work?*/
+  font-weight: bold;
+  color: #FFF;
+}
+
 div#user_selections, div#db_selections {
   margin: auto;
   margin-bottom: 25px;
