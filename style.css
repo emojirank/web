@@ -126,9 +126,10 @@ div#footer_text {
 }
 
 div#no_votes_warning {
-  border: 1px solid black;
+  text-align: center;
   margin: 10px;
-  padding: 5px;
+  padding: 35px;
+  padding-bottom: 50px;
 }
 
 div#no_votes_warning a {
