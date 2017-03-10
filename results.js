@@ -89,7 +89,7 @@ function getData() {
       }
       glyph_row.append(negative_column);
 
-      glyph_row.append($("<td>").text(emoji.vendor_name));
+      glyph_row.append($("<td style=\"text-align: center;\">").text(emoji.vendor_name));
 
       var positive_column = $("<td>");
       if (emoji.glyph_score > 0) {

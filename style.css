@@ -121,6 +121,12 @@ div#footer_text {
   padding: 20px;
 }
 
+table#glyph_rows {
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 50px;
+}
+
 .glyph_row {
   height: 36px;
 }
