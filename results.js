@@ -8,6 +8,8 @@ var unicode_value = window.location.pathname.split('/')[2];
 var emoji_array = [];
 
 $(document).ready(function() {
+  $(".vote_link").attr("href", "/emoji/" + unicode_value);
+
   $.get('/reset-glyph-stats/' + unicode_value, function(data) {
     getData();
   }); 
@@ -46,34 +48,22 @@ function getData() {
   $.get("/get-emoji/" + unicode_value, function(data) {
     $("#emoji_name").html(data[0].emoji_name);
     document.title = "EmojiRank: " + data[0].emoji_name;
+
+    var has_votes = false;
     for (i in data) {
       var emoji = data[i];
 
       if (! emoji.like_count) emoji.like_count = 0;
       if (! emoji.hate_count) emoji.hate_count = 0;
       emoji_array.push(emoji);
+      if (emoji.like_count > 0 || emoji.hate_count > 0) {
+        has_votes = true;
+      }
     }
 
-    emoji_array.sort(like_comparison);
-
-    for (i in emoji_array) {
-      var tr = $("<tr>");
-      tr.append($("<td>").text(parseInt(i, 10) + 1));
-      tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
-      tr.append($("<td>").text(emoji_array[i].vendor_name));
-      tr.append($("<td>").text(emoji_array[i].like_count));
-      $("#table_by_like").append(tr);
-    }
-
-    emoji_array.sort(hate_comparison);
-
-    for (i in emoji_array) {
-      var tr = $("<tr>");
-      tr.append($("<td>").text(parseInt(i, 10) + 1));
-      tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
-      tr.append($("<td>").text(emoji_array[i].vendor_name));
-      tr.append($("<td>").text(emoji_array[i].hate_count));
-      $("#table_by_hate").append(tr);
+    if (!has_votes) {
+      $("#no_votes_warning").show();
+      $("#glyph_rows").hide();
     }
 
     emoji_array.sort(glyph_score_comparison);
@@ -108,6 +98,30 @@ function getData() {
       glyph_row.append(positive_column);
 
       $("#glyph_rows").append(glyph_row);
+    }
+
+    return;
+
+    emoji_array.sort(like_comparison);
+
+    for (i in emoji_array) {
+      var tr = $("<tr>");
+      tr.append($("<td>").text(parseInt(i, 10) + 1));
+      tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
+      tr.append($("<td>").text(emoji_array[i].vendor_name));
+      tr.append($("<td>").text(emoji_array[i].like_count));
+      $("#table_by_like").append(tr);
+    }
+
+    emoji_array.sort(hate_comparison);
+
+    for (i in emoji_array) {
+      var tr = $("<tr>");
+      tr.append($("<td>").text(parseInt(i, 10) + 1));
+      tr.append($("<td>").append(getGlyphBox(emoji_array[i])));
+      tr.append($("<td>").text(emoji_array[i].vendor_name));
+      tr.append($("<td>").text(emoji_array[i].hate_count));
+      $("#table_by_hate").append(tr);
     }
   });
 }
