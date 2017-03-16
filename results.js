@@ -73,7 +73,7 @@ function getData() {
 
       var glyph_bar = $("<div>");
       glyph_bar.addClass("crisp");
-      glyph_bar.css("width", Math.abs(emoji.glyph_score) * 2.5);
+      glyph_bar.css("width", Math.abs(emoji.glyph_score) * 2);
       glyph_bar.css("height", 36);
       glyph_bar.css("background-image", 'url(' + image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png)");
       glyph_bar.css("background-repeat", "repeat-x");
