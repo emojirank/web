@@ -12,7 +12,12 @@ $(document).ready(function() {
 
   $.get('/reset-glyph-stats/' + unicode_value, function(data) {
     getData();
-  }); 
+  });
+});
+
+$( window ).resize(function() {
+  $("#glyph_rows").empty()
+  renderGlyphScoreRows();
 });
 
 function like_comparison(a, b) {
@@ -66,39 +71,7 @@ function getData() {
       $("#glyph_rows").hide();
     }
 
-    emoji_array.sort(glyph_score_comparison);
-
-    for (i in emoji_array) {
-      var emoji = emoji_array[i];
-
-      var glyph_bar = $("<div>");
-      glyph_bar.addClass("crisp");
-      glyph_bar.css("width", Math.abs(emoji.glyph_score) * 2);
-      glyph_bar.css("height", 36);
-      glyph_bar.css("background-image", 'url(' + image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png)");
-      glyph_bar.css("background-repeat", "repeat-x");
-      glyph_bar.css("background-size", "36px 36px");
-
-      var glyph_row = $("<tr>");
-      glyph_row.addClass("glyph_row");
-
-      var negative_column = $("<td>");
-      if (emoji.glyph_score < 0) {
-        glyph_bar.addClass("negative_bar");
-        negative_column.append(glyph_bar);
-      }
-      glyph_row.append(negative_column);
-
-      glyph_row.append($("<td style=\"text-align: center;\">").text(emoji.vendor_name));
-
-      var positive_column = $("<td>");
-      if (emoji.glyph_score > 0) {
-        positive_column.append(glyph_bar);
-      }
-      glyph_row.append(positive_column);
-
-      $("#glyph_rows").append(glyph_row);
-    }
+    renderGlyphScoreRows();
 
     return;
 
@@ -124,4 +97,48 @@ function getData() {
       $("#table_by_hate").append(tr);
     }
   });
+}
+
+function renderGlyphScoreRows() {
+  emoji_array.sort(glyph_score_comparison);
+
+  var barWidth = ($("#glyph_rows").width() / 2) - 40;
+
+  var header = $("<tr><th>Negative</th><th>Vendor</th><th>Positive</th></tr>");
+
+  $("#glyph_rows").append(header);
+
+  for (i in emoji_array) {
+    var emoji = emoji_array[i];
+    console.log(emoji.vendor_name + " " + emoji.glyph_score);
+
+
+    var glyph_bar = $("<div>");
+    glyph_bar.addClass("crisp");
+    glyph_bar.css("width", Math.abs(emoji.glyph_score) * barWidth/100);
+    glyph_bar.css("height", 36);
+    glyph_bar.css("background-image", 'url(' + image_prefix + emoji.unicode_value + "_" + emoji.vendor_name + ".png)");
+    glyph_bar.css("background-repeat", "repeat-x");
+    glyph_bar.css("background-size", "36px 36px");
+
+    var glyph_row = $("<tr>");
+    glyph_row.addClass("glyph_row");
+
+    var negative_column = $("<td>");
+    if (emoji.glyph_score < 0) {
+      glyph_bar.addClass("negative_bar");
+      negative_column.append(glyph_bar);
+    }
+    glyph_row.append(negative_column);
+
+    glyph_row.append($("<td style=\"text-align: center;\">").text(emoji.vendor_name));
+
+    var positive_column = $("<td>");
+    if (emoji.glyph_score > 0) {
+      positive_column.append(glyph_bar);
+    }
+    glyph_row.append(positive_column);
+
+    $("#glyph_rows").append(glyph_row);
+  }
 }

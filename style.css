@@ -125,6 +125,7 @@ table#glyph_rows {
   margin: auto;
   padding: 20px;
   padding-bottom: 50px;
+  width: 100%;
 }
 
 .glyph_row {
