@@ -43,6 +43,15 @@ app.get('/next', function (req, res) {
     });
 });
 
+app.get('/nextgenerate', function (req, res) {
+    // TEMP: Probably a better replacement for this.
+    var randomLine = getRandomInt(0,2388);
+    console.log(randomLine);
+    db.glyphs.find({ "unicode_line" : randomLine.toString()}, function(err, result) {
+      res.redirect("/generate/" + result[0].unicode_value);
+    });
+});
+
 app.get('/get-next-emoji', function(req, res) {
   db.glyphs.find({ "emoji_total_count" : { "$exists": false }}).limit(1 , function(err, result) {
     if (result.length === 0)
@@ -92,6 +101,9 @@ app.get('/results/:unicode_value', function(req, res) {
     res.sendfile('results.html');
 });
 
+app.get('/generate/:unicode_value', function(req, res) {
+    res.sendfile('generate.html');
+});
 
 app.get('/analytics', function(req, res) {
   res.sendfile('analytics.html');

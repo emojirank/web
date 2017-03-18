@@ -18,6 +18,10 @@ h1 {
   text-transform: capitalize;
 }
 
+h2#call_to_action {
+  text-align: center;
+}
+
 h3 {
   margin-bottom: 15px;
 }
